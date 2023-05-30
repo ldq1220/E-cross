@@ -7,7 +7,8 @@ const zhCN = {
         data: '数据大屏',
         expert:'达人线索',
         expertSearch:'达人搜索',
-        expertMate:'达人匹配'
+        expertMate:'达人匹配',
+        expertDetails:'达人详情'
     },
 }
 export default zhCN

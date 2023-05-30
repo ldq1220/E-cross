@@ -44,17 +44,7 @@ export const constantRoute = [
             hidden: true,
             icon: 'DocumentDelete',
         },
-    },
-    // {
-    //     path: '/screen',
-    //     component: () => import('@/views/screen/index.vue'),
-    //     name: 'Screen',
-    //     meta: {
-    //         hidden: false,
-    //         title: 'data',
-    //         icon: 'Platform',
-    //     },
-    // },
+    }
 ]
 
 //异步路由
@@ -178,6 +168,15 @@ export const asnycRoute = [
                     icon: 'UserFilled',
                 },
             },
+            {
+                path: '/expert/details',
+                component: () => import('@/views/expert/expertSearch/components/experDetails/index.vue'),
+                name: 'Details',
+                meta: {
+                    title: 'expertDetails',
+                    icon: 'UserFilled',
+                },
+            }
         ],
     }
 ]

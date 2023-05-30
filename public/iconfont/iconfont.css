@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4093181 */
-  src: url('iconfont.woff2?t=1685355174805') format('woff2'),
-       url('iconfont.woff?t=1685355174805') format('woff'),
-       url('iconfont.ttf?t=1685355174805') format('truetype');
+  src: url('iconfont.woff2?t=1685438911301') format('woff2'),
+       url('iconfont.woff?t=1685438911301') format('woff'),
+       url('iconfont.ttf?t=1685438911301') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,46 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-haopingxiaolian:before {
+  content: "\e7d7";
+}
+
+.icon-24gf-playCircle:before {
+  content: "\ea82";
+}
+
+.icon-shoucang:before {
+  content: "\e618";
+}
+
+.icon-shoucang1:before {
+  content: "\e634";
+}
+
+.icon-youjiantou:before {
+  content: "\e603";
+}
+
+.icon-shipinbofangshibofang:before {
+  content: "\e62b";
+}
+
+.icon-shangjiantou:before {
+  content: "\e601";
+}
+
+.icon-xiajiantou:before {
+  content: "\e602";
+}
+
+.icon-biaoqian:before {
+  content: "\e62f";
+}
+
+.icon-bangzhu:before {
+  content: "\e600";
 }
 
 .icon-xiangxia1:before {
