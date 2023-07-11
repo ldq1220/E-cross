@@ -16,7 +16,7 @@
 
         /* Linting */
         "strict": true,
-        "noUnusedLocals": true,
+        "noUnusedLocals": true, //不能有声明后未被使用的变量或参数
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
 

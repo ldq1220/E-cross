@@ -51,4 +51,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.el-menu-item:hover{
+    color: #fff;
+    background-color: $base-theme-color !important;
+}
+
+</style>

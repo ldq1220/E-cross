@@ -5,18 +5,15 @@ const zhCN = {
     menu: {
         home: 'home page',
         data: 'Data large screen',
-        acl: 'authority management',
-        aclUser: 'user management',
-        aclRole: 'role management',
-        aclPermission: 'menu management',
-        product: 'commodity management',
-        proAttr: 'attribute management',
-        proTrademark: 'brand management',
-        proSpu: 'SPU management',
-        proSku: 'SKU management',
-        expert:'Master clue',
-        expertSearch:'Master search',
-        expertMate:'Master matching'
+        expert: 'Master clue',
+        expertSearch: 'Master search',
+        expertMate: 'Master matching',
+        expertDetails: 'Master details',
+        ExpertTop: 'Master top',
+        expertAdmin: 'Maset admin',
+        expertEmail: 'sendmail',
+        productDetails: 'Product details',
+        topicExpertList: 'List of hot topic',
     },
 }
 export default zhCN

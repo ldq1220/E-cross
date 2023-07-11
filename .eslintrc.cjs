@@ -5,6 +5,7 @@ module.exports = {
         es2021: true,
         node: true,
         jest: true,
+        "vue/setup-compiler-macros": true,
     },
     /* 指定如何解析语法 */
     parser: 'vue-eslint-parser',

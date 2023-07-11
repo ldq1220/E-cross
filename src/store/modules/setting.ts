@@ -8,11 +8,16 @@ const uselayoutSettingStore = defineStore('Setting', () => {
     }
 
     const refresh = ref(false) // 控制刷新
+    const refreshFn = () => {
+        refresh.value = !refresh.value
+    }
+
 
     return {
         fold,
-        changeFold,
         refresh,
+        changeFold,
+        refreshFn,
     }
 })
 

@@ -2,21 +2,37 @@
 @import './reset.scss';
 @import './variable.scss';
 
-body{
-    background-color: #F7F7F7;
+body {
+    background-color: #f7f7f7;
 }
 //滚动条外观设置
-
 // ::-webkit-scrollbar {
-//     width: 10px;
+//     width: 0;
+//     height: 0;
+//     background-color: rgba(0, 0, 0, 0);
 // }
 
-// ::-webkit-scrollbar-track {
-//     background: $base-menu-background;
-// }
-
-// ::-webkit-scrollbar-thumb {
-//     width: 10px;
-//     background-color: yellowgreen;
-//     border-radius: 10px;
-// }
+// 修改element 输入框选中状态
+.el-input__wrapper.is-focus {
+    box-shadow: 0 0 0 1px $base-theme-color inset !important;
+}
+.el-textarea__inner:focus {
+    box-shadow: 0 0 0 1px $base-theme-color inset !important;
+}
+#app .el-select .el-input__wrapper.is-focus {
+    box-shadow: 0 0 0 1px $base-theme-color inset !important;
+}
+#app .el-select .el-input.is-focus .el-input__wrapper {
+    box-shadow: 0 0 0 1px $base-theme-color inset !important;
+}
+.el-select-dropdown__item.selected {
+    color: $base-theme-color !important;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: $base-theme-color !important;
+    border-color: $base-theme-color !important;
+}
+.el-checkbox__input.is-indeterminate .el-checkbox__inner{
+    background-color: $base-theme-color !important;
+    border-color: $base-theme-color !important;
+}

@@ -6,6 +6,426 @@
   "description": "政元TikTok跨境易达",
   "glyphs": [
     {
+      "icon_id": "14732",
+      "name": "向下",
+      "font_class": "xiangxia",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "6941975",
+      "name": "展开",
+      "font_class": "zhankai-",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "8604948",
+      "name": "内容分析",
+      "font_class": "neirongfenxi",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "12129940",
+      "name": "动态",
+      "font_class": "dongtai",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "26082643",
+      "name": "粉丝",
+      "font_class": "fensi1",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "595397",
+      "name": "内容",
+      "font_class": "neirong",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "1727386",
+      "name": "36合作、关系",
+      "font_class": "hezuoguanxi",
+      "unicode": "e8a9",
+      "unicode_decimal": 59561
+    },
+    {
+      "icon_id": "2252529",
+      "name": "合作",
+      "font_class": "hezuo",
+      "unicode": "e6ef",
+      "unicode_decimal": 59119
+    },
+    {
+      "icon_id": "4191224",
+      "name": "粉丝@2x",
+      "font_class": "fensix",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "4572465",
+      "name": "信息",
+      "font_class": "wode",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "6291784",
+      "name": "粉丝",
+      "font_class": "fensi",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "35634182",
+      "name": "直播带货",
+      "font_class": "zhibodaihuo",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "11372665",
+      "name": "复制",
+      "font_class": "fuzhi",
+      "unicode": "e8b0",
+      "unicode_decimal": 59568
+    },
+    {
+      "icon_id": "553830",
+      "name": "jinggao",
+      "font_class": "jinggao1",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "630129",
+      "name": "正确",
+      "font_class": "zhengque4",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "2076349",
+      "name": "正确",
+      "font_class": "zhengque5",
+      "unicode": "e8ad",
+      "unicode_decimal": 59565
+    },
+    {
+      "icon_id": "5800630",
+      "name": "正确",
+      "font_class": "zhengque3",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "125896",
+      "name": "错误",
+      "font_class": "cuowu",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "8180208",
+      "name": "错误",
+      "font_class": "cuowu1",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "16364338",
+      "name": "正确",
+      "font_class": "zhengque",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "23949547",
+      "name": "正确",
+      "font_class": "zhengque1",
+      "unicode": "ec6b",
+      "unicode_decimal": 60523
+    },
+    {
+      "icon_id": "11125636",
+      "name": "直播",
+      "font_class": "15",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "11372739",
+      "name": "直播",
+      "font_class": "zhibo",
+      "unicode": "e8c1",
+      "unicode_decimal": 59585
+    },
+    {
+      "icon_id": "2076218",
+      "name": "播放2",
+      "font_class": "bofang",
+      "unicode": "e87c",
+      "unicode_decimal": 59516
+    },
+    {
+      "icon_id": "2539913",
+      "name": "合同备案",
+      "font_class": "hetongbeian",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "6265247",
+      "name": "闪聘",
+      "font_class": "lightning",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "6540384",
+      "name": "履行中",
+      "font_class": "lvhangzhong",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "8140539",
+      "name": "合同审批",
+      "font_class": "hetongshenpi",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "20312916",
+      "name": "播放中",
+      "font_class": "bofangzhong",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "19654105",
+      "name": "女",
+      "font_class": "nv",
+      "unicode": "e7fc",
+      "unicode_decimal": 59388
+    },
+    {
+      "icon_id": "594376",
+      "name": "男",
+      "font_class": "nan",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "19654107",
+      "name": "男",
+      "font_class": "nan1",
+      "unicode": "e7fb",
+      "unicode_decimal": 59387
+    },
+    {
+      "icon_id": "20158657",
+      "name": "星星2",
+      "font_class": "xingxing2",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "400089",
+      "name": "分享",
+      "font_class": "htmal5icon20",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "579551",
+      "name": "刷新",
+      "font_class": "shuaxin",
+      "unicode": "e782",
+      "unicode_decimal": 59266
+    },
+    {
+      "icon_id": "594378",
+      "name": "评论",
+      "font_class": "pinglun",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "1727441",
+      "name": "213收藏",
+      "font_class": "shoucang2",
+      "unicode": "e8c2",
+      "unicode_decimal": 59586
+    },
+    {
+      "icon_id": "4936972",
+      "name": "instagram",
+      "font_class": "instagram",
+      "unicode": "e87f",
+      "unicode_decimal": 59519
+    },
+    {
+      "icon_id": "4936989",
+      "name": "Youtube-fill",
+      "font_class": "Youtube-fill",
+      "unicode": "e883",
+      "unicode_decimal": 59523
+    },
+    {
+      "icon_id": "6380878",
+      "name": "点赞_块",
+      "font_class": "dianzan_kuai",
+      "unicode": "ec8c",
+      "unicode_decimal": 60556
+    },
+    {
+      "icon_id": "7714938",
+      "name": "facebook",
+      "font_class": "facebook",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "8356570",
+      "name": "推特1",
+      "font_class": "tuite",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "11125633",
+      "name": "文章",
+      "font_class": "16",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "15644375",
+      "name": "视频",
+      "font_class": "shipin",
+      "unicode": "e6c9",
+      "unicode_decimal": 59081
+    },
+    {
+      "icon_id": "16308101",
+      "name": "眼睛/观看",
+      "font_class": "yanjing",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "18166694",
+      "name": "抖音",
+      "font_class": "douyin",
+      "unicode": "e8db",
+      "unicode_decimal": 59611
+    },
+    {
+      "icon_id": "21800725",
+      "name": "邮件",
+      "font_class": "youjian",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "29188312",
+      "name": "免费",
+      "font_class": "mianfei1",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "18866687",
+      "name": "免费",
+      "font_class": "mianfei",
+      "unicode": "e6ab",
+      "unicode_decimal": 59051
+    },
+    {
+      "icon_id": "617449",
+      "name": "特点_闪电发货",
+      "font_class": "tedianshandianfahuo",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "8222356",
+      "name": "合同",
+      "font_class": "hetong",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "27931683",
+      "name": "imp 低代码音视频工厂",
+      "font_class": "a-impdidaimayinshipingongchang",
+      "unicode": "e8f9",
+      "unicode_decimal": 59641
+    },
+    {
+      "icon_id": "487238",
+      "name": "警告",
+      "font_class": "jinggao",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "666884",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    },
+    {
+      "icon_id": "13000499",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "10635173",
+      "name": "消息-信息",
+      "font_class": "message",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "16130010",
+      "name": "人气、热度",
+      "font_class": "renqiredu",
+      "unicode": "e708",
+      "unicode_decimal": 59144
+    },
+    {
+      "icon_id": "479476",
+      "name": "向前",
+      "font_class": "xiangqian",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "8834373",
+      "name": "向前",
+      "font_class": "xiangqian1",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "33986997",
+      "name": "喜欢",
+      "font_class": "xihuan",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
       "icon_id": "6129290",
       "name": "249好评、笑脸",
       "font_class": "haopingxiaolian",

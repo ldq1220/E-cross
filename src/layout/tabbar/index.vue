@@ -7,12 +7,7 @@
             <div class="crumbs">
                 <el-breadcrumb separator-icon="ArrowRight">
                     <!-- 面包动态展示路由名字与标题 -->
-                    <el-breadcrumb-item
-                        v-for="item in route.matched"
-                        :key="item.path"
-                        v-show="item.meta.title"
-                        :to="item.path"
-                    >
+                    <el-breadcrumb-item v-for="item in route.matched" :key="item.path" v-show="item.meta.title" :to="item.path">
                         <!-- 面包屑展示匹配路由的标题 -->
                         <span>{{ $t(`menu.${item.meta.title}`) }}</span>
                     </el-breadcrumb-item>
@@ -53,6 +48,7 @@ export default {
     .tabbar_right {
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 }
 
@@ -64,6 +60,11 @@ export default {
     span {
         font-size: 20px;
         font-weight: 700;
+        cursor: pointer;
+        transition: all .2s;
+    }
+    span:hover {
+        color: $base-theme-color;
     }
 }
 .crumbs::before {
@@ -74,6 +75,6 @@ export default {
     height: 40px;
     top: -50%;
     left: 0px;
-    background: rgba(255, 110, 108, 1);
+    background: $base-theme-color;
 }
 </style>
