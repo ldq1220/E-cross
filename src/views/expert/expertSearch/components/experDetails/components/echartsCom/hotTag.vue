@@ -7,11 +7,16 @@
 <script setup lang="ts">
 import * as echarts from 'echarts'
 import 'echarts-wordcloud'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { reqExpertLabelStats } from '@/api/expert/expertInfo'
 import { useRoute } from 'vue-router'
+import useI18nStore from '@/store/modules/i18n'
+
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n() // 解构出t方法
 
 const route = useRoute()
+const i18nStore = useI18nStore()
 
 let option: object
 let influencerId = ref()
@@ -21,6 +26,18 @@ onMounted(() => {
     influencerId.value = route.query.id
     getEcharts(influencerId.value)
 })
+watch(
+    () => i18nStore.lang,
+    () => {
+        const chartDom = document.getElementById('hotTag')
+        myChart = echarts.init(chartDom as any)
+        myChart.setOption({
+            title: {
+                text: t('echarts.hotTagTitle'),
+            },
+        })
+    },
+)
 
 const getEcharts = async (influencerId: string) => {
     let res: any = await reqExpertLabelStats(influencerId)

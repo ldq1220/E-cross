@@ -61,48 +61,51 @@
         <el-table :data="tableData" style="width: 100%" class="tabel_list">
             <el-table-column type="selection" width="55" />
 
-            <el-table-column property="head" width="80">
+            <el-table-column width="80">
                 <template #default="scope">
-                    <img :src="scope.row.head" alt="" class="expert_head" />
+                    <img :src="scope.row.influencer.avatarKey" alt="" class="expert_head" />
                 </template>
             </el-table-column>
 
-            <el-table-column property="name" label="昵称" width="130" header-align="center">
+            <el-table-column label="昵称" header-align="center">
                 <template #default="scope">
-                    <span class="expert_name">{{ scope.row.name }}</span>
+                    <span class="expert_name">{{ scope.row.influencer.nickName }}</span>
                 </template>
             </el-table-column>
 
-            <el-table-column property="area" label="地区" width="90" header-align="center">
+            <el-table-column property="area" label="地区" min-width="115" align="center">
                 <template #default="scope">
-                    <img src="/src/assets/images/guoqi.png" alt="" class="expert_guoqi" />
-                    <span class="expert_area">{{ scope.row.area }}</span>
+                    <i class="fi" :class="'fi-' + scope.row.influencer.countryCode.toLowerCase()" style="margin-right: 14px"></i>
+                    <span class="expert_area">{{ getCountryCodeName(scope.row.influencer.countryCode) }}</span>
                 </template>
             </el-table-column>
 
-            <el-table-column property="type" label="类型" width="90" header-align="center">
+            <el-table-column property="type" label="创作类型" header-align="center" align="center" min-width="200">
                 <template #default="scope">
-                    <el-tag type="danger">{{ scope.row.type }}</el-tag>
+                    <el-tag style="margin-right: 4px" type="danger" v-for="(item, index) in getLabelsFromValues(scope.row.influencer.topics, systemStore.creativeTypes)" :key="index">
+                        {{ item }}
+                    </el-tag>
                 </template>
             </el-table-column>
 
-            <el-table-column property="grouping" label="分组" width="80" />
+            <el-table-column property="grouping" label="分组" align="center" />
 
-            <el-table-column label="联系状态" width="80">
-                <template #default="scope">
-                    <el-tag type="warning">{{ scope.row.relation }}</el-tag>
-                </template>
-            </el-table-column>
             <el-table-column label="合作状态" width="130" header-align="center">
                 <template #default="scope">
-                    <el-select v-model="groupingValue" clearable placeholder="未合作" class="groupingSelect">
-                        <el-option v-for="item in scope.row.options" :key="item.value" :label="item.label" :value="item.value" />
+                    <el-select v-model="scope.row.cooperationStatus" placeholder="合作状态" class="groupingSelect">
+                        <el-option label="未合作" :value="0" />
+                        <el-option label="已寄样" :value="1" />
+                        <el-option label="已上线合作视频" :value="2" />
                     </el-select>
                 </template>
             </el-table-column>
-            <el-table-column property="num" label="推广数量" width="80" align="center" />
+            <el-table-column property="num" label="推广数量" align="center" />
             <el-table-column property="remark" label="备注" show-overflow-tooltip align="center" />
-            <el-table-column property="time" label="最新维护日期" width="160" />
+            <el-table-column label="最新维护日期" min-width="150" align="center">
+                <template #default="scope">
+                    {{ dayjs.unix(scope.row.updatedAt).format('YYYY-MM-DD HH:mm') }}
+                </template>
+            </el-table-column>
 
             <el-table-column property="newEmail" label="" width="50">
                 <template #default="scope">
@@ -114,9 +117,9 @@
             </el-table-column>
 
             <el-table-column label="操作" width="90" header-align="center">
-                <template #default="">
+                <template #default="scope">
                     <div class="op_icon">
-                        <i class="iconfont icon-bianji operation_icon" @click="updataExpert"></i>
+                        <i class="iconfont icon-bianji operation_icon" @click="updataExpert(scope.row.id)"></i>
                         <i class="iconfont icon-shanchu operation_icon"></i>
                     </div>
                 </template>
@@ -125,17 +128,18 @@
 
         <!-- 编辑达人 对话框 -->
         <div class="dialog">
-            <el-dialog v-model="dialogFormVisible" title="编辑达人">
-                <el-form :inline="true" :model="form" label-position="top">
+            <el-dialog v-model="dialogFormVisible" title="编辑达人" @close="updateDialogClose">
+                <el-form :inline="true" :model="form" label-position="top" ref="emailDom" :rules="rulesUpdate">
                     <!-- 左侧 -->
                     <div class="dialog_left">
-                        <img src="/src/assets//images//head.png" alt="" />
-                        <span>Miss.BigLiu</span>
+                        <img :src="form.influencer.avatarKey" alt="" />
+                        <span>{{ form.influencer.nickName }}</span>
 
                         <el-form-item label="合作状态" class="" style="margin-top: 20px">
-                            <el-select v-model="form.status" style="width: 160px">
-                                <el-option label="已合作" :value="0" />
-                                <el-option label="未合作" :value="1" />
+                            <el-select v-model="form.cooperationStatus" style="width: 160px" placeholder="请选择合作状态">
+                                <el-option label="未合作" :value="0" />
+                                <el-option label="已寄样" :value="1" />
+                                <el-option label="已上线合作视频" :value="2" />
                             </el-select>
                         </el-form-item>
 
@@ -144,10 +148,10 @@
                         </el-form-item>
 
                         <el-form-item label="其他联系方式" class="">
-                            <el-input v-model="form.contact" :rows="4" type="textarea" placeholder="请输入其他联系方式" />
+                            <el-input v-model="form.contactInfo" :rows="4" type="textarea" placeholder="请输入其他联系方式" />
                         </el-form-item>
 
-                        <el-upload v-model="form.fileList" class="upload-demo" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15" multiple :limit="3">
+                        <el-upload v-model:file-list="fileList" class="upload-demo" :http-request="uploadContract" multiple ref="upload" :limit="1" :on-exceed="handleExceed" :on-remove="removeFile">
                             <el-button type="">
                                 <el-icon><UploadFilled /></el-icon>
                                 <p style="margin-left: 10px">上传合同</p>
@@ -156,21 +160,30 @@
                                 <div class="el-upload__tip">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</div>
                             </template>
                         </el-upload>
+
+                        <a :href="form.contractUrl" target="_blank" class="look_pact" v-show="form.contractUrl">
+                            <i class="iconfont icon-neirong"></i>
+                            查看合同
+                        </a>
                     </div>
                     <!-- 右侧 -->
                     <div class="dialog_right">
-                        <el-form-item label="邮箱" class="">
+                        <el-form-item label="邮箱" class="" prop="email">
                             <el-input v-model="form.email" autocomplete="off" placeholder="请输入邮箱" style="width: 200px" />
                         </el-form-item>
 
-                        <el-form-item label="合作报价" class="">
-                            <el-input v-model="form.offer" placeholder="请输入内容" style="width: 200px">
+                        <el-form-item label="合作报价" class="" style="min-width: 340px">
+                            <el-input v-model.number="form.cooperationOffer1" placeholder="请输入内容" style="width: 45%">
+                                <template #prepend>$</template>
+                            </el-input>
+                            <span style="padding: 0 10px">至</span>
+                            <el-input v-model.number="form.cooperationOffer2" placeholder="请输入内容" style="width: 45%">
                                 <template #prepend>$</template>
                             </el-input>
                         </el-form-item>
 
                         <el-form-item label="收货信息" class="">
-                            <el-input v-model="form.receiving" :rows="4" type="textarea" placeholder="请输入收货信息" />
+                            <el-input v-model="form.shippingInfo" :rows="4" type="textarea" placeholder="请输入收货信息" />
                         </el-form-item>
 
                         <el-form-item label="备注" class="">
@@ -249,10 +262,30 @@
 import expertAdminEcharts from './expertAdminEcharts.vue'
 import { ref, reactive, onMounted } from 'vue'
 import { reqFav_Influencers } from '@/api/expert/expertAdmin'
+import { getCountryCodeName, getLabelsFromValues } from '@/utils/allDict'
+import { reqGetFavInfluencers, reqGetOssSigned, reqFavInfluencers } from '@/api/expert/expertInfo'
+import useSystemStore from '@/store/modules/system'
+import dayjs from 'dayjs'
+import axios from 'axios'
+import { ElMessage, genFileId } from 'element-plus'
+// @ts-ignore
+import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
+
+const systemStore = useSystemStore()
 
 onMounted(() => {
-    reqFav_Influencers(2)
+    getFavInfluencersList()
 })
+
+// 列表数据
+const tableData = ref()
+// 获取列表
+const getFavInfluencersList = async () => {
+    let res: any = await reqFav_Influencers()
+    if (res.code === '00000') {
+        tableData.value = res.result
+    }
+}
 
 // 筛选条件数据
 const screenData: any = reactive({
@@ -288,6 +321,7 @@ const getScreen = (data: any, id: number) => {
         item.id == id ? (item.isactive = true) : (item.isactive = false)
     })
 }
+
 // 清除按钮方法  清除所有已选择标签
 const clearSelected = () => {
     for (const key in screenData) {
@@ -333,123 +367,142 @@ const rules = reactive({
     homePage: [{ required: true, message: '达人主页不能为空', trigger: 'blur' }],
 })
 
-// 列表数据
-const groupingValue = ref('')
-const tableData = ref([
-    {
-        id: 0,
-        head: '/src/assets/images/head.png',
-        name: 'Miss.BigLiu',
-        area: '美国',
-        type: 'beauty',
-        grouping: '默认',
-        relation: '已联系',
-        num: 123,
-        options: [
-            {
-                value: '0',
-                label: '达人分组',
-            },
-        ],
-        remark: '啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦',
-        time: '2023-06-01 12:20',
-    },
-    {
-        id: 0,
-        head: '/src/assets/images/head.png',
-        name: 'Miss.BigLiu',
-        area: '美国',
-        type: 'beauty',
-        grouping: '默认',
-        relation: '已联系',
-        num: 123,
-        options: [
-            {
-                value: '0',
-                label: '达人分组',
-            },
-        ],
-        remark: '啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦',
-        time: '2023-06-01 12:20',
-    },
-    {
-        id: 0,
-        head: '/src/assets/images/head.png',
-        name: 'Miss.BigLiu',
-        area: '美国',
-        type: 'beauty',
-        grouping: '默认',
-        relation: '已联系',
-        num: 123,
-        options: [
-            {
-                value: '0',
-                label: '达人分组',
-            },
-        ],
-        remark: '啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦',
-        time: '2023-06-01 12:20',
-    },
-    {
-        id: 0,
-        head: '/src/assets/images/head.png',
-        name: 'Miss.BigLiu',
-        area: '美国',
-        type: 'beauty',
-        grouping: '默认',
-        relation: '已联系',
-        num: 123,
-        options: [
-            {
-                value: '0',
-                label: '达人分组',
-            },
-        ],
-        remark: '啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦',
-        time: '2023-06-01 12:20',
-    },
-    {
-        id: 0,
-        head: '/src/assets/images/head.png',
-        name: 'Miss.BigLiu',
-        area: '美国',
-        type: 'beauty',
-        grouping: '默认',
-        relation: '已联系',
-        num: 123,
-        options: [
-            {
-                value: '0',
-                label: '达人分组',
-            },
-        ],
-        remark: '啦啦啦啦啦啦啦啦啦啦啦',
-        time: '2023-06-01 12:20',
-        newEmail: true,
-    },
-])
-
 // 控制编辑达人 对话框 显示与隐藏
 const dialogFormVisible = ref(false)
-const form = reactive({
-    email: '',
-    status: 1,
-    paymentInfo: '',
-    contact: '',
-    offer: '',
-    receiving: '',
-    remark: '',
-    fileList: [],
+const emailDom = ref()
+const fileData = ref()
+const signedUrl = ref()
+const favCateId = ref()
+// 上传合同
+const uploadContract = (data: any) => {
+    fileData.value = data.file
+}
+const form: any = reactive({
+    cooperationStatus: undefined,
+    email: undefined,
+    cooperationOffer1: undefined,
+    cooperationOffer2: undefined,
+    paymentInfo: undefined,
+    shippingInfo: undefined,
+    contactInfo: undefined,
+    remark: undefined,
+    contractKey: undefined,
+    contractUrl: undefined,
+    influencer: {
+        avatarKey: undefined,
+        nickName: undefined,
+    },
 })
-
+// @ts-ignore
+const fileList = ref<UploadUserFile[]>([])
+// @ts-ignore
+const upload = ref<UploadInstance>()
+// @ts-ignore
+const handleExceed: UploadProps['onExceed'] = (files: any[]) => {
+    fileData.value = files[0]
+    upload.value!.clearFiles()
+    // @ts-ignore
+    const file = files[0] as UploadRawFile
+    file.uid = genFileId()
+    upload.value!.handleStart(file)
+}
+const updateDialogClose = () => {
+    upload.value.clearFiles()
+}
+const removeFile = () => {
+    upload.value.clearFiles()
+    fileData.value = undefined
+    form.contractKey = ''
+    form.contractUrl = ''
+}
 // 编辑达人按钮
-const updataExpert = () => {
-    dialogFormVisible.value = true
+const updataExpert = async (id: number) => {
+    favCateId.value = id
+    const { code, result } = await reqGetFavInfluencers(id)
+    if (code === '00000') {
+        dialogFormVisible.value = true
+        Object.assign(form, result)
+        form.cooperationOffer1 = result.cooperationOffer[0] || undefined
+        form.cooperationOffer2 = result.cooperationOffer[1] || undefined
+        fileList.value = []
+        fileList.value.push({
+            name: result.contractKey.substring(result.contractKey.lastIndexOf('/') + 1),
+            url: result.signedUrl,
+        })
+    }
 }
+
 // 编辑达人保存
-const save = () => {
-    dialogFormVisible.value = false
+const save = async () => {
+    if (form.email) {
+        await emailDom.value.validate() // 通过邮箱校验
+    }
+    // 上传合同
+    if (fileData.value) {
+        let res: any = await reqGetOssSigned({ scene: 1, key: fileData.value.name }) // 获取上传URL
+        if (res.code === '00000') {
+            signedUrl.value = res.result.signedUrl
+            form.contractKey = res.result.fullKey
+        }
+
+        let config = {
+            method: 'put',
+            url: signedUrl.value,
+            data: fileData.value,
+            headers: {
+                'Content-Type': fileData.value.type,
+            },
+        }
+        axios(config)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    let cooperationOffer = []
+    form.cooperationOffer1 === '' ? (cooperationOffer[0] = undefined) : (cooperationOffer[0] = form.cooperationOffer1)
+    form.cooperationOffer2 === '' ? (cooperationOffer[1] = undefined) : (cooperationOffer[1] = form.cooperationOffer2)
+
+    console.log('form---------', form)
+
+    const data = {
+        favCateId: favCateId.value,
+        cooperationStatus: form.cooperationStatus,
+        email: form.email || undefined,
+        cooperationOffer: cooperationOffer,
+        paymentInfo: form.paymentInfo || undefined,
+        shippingInfo: form.shippingInfo || undefined,
+        contactInfo: form.contactInfo || undefined,
+        remark: form.remark || undefined,
+        contractKey: form.contractKey || null,
+    }
+    console.log('data-------', data)
+
+    let res: any = await reqFavInfluencers(favCateId.value, data) // 更新合作信息
+    if (res.code === '00000') {
+        upload.value.clearFiles()
+        getFavInfluencersList()
+        ElMessage.success('保存成功')
+        dialogFormVisible.value = false
+    }
 }
+// 校验规则
+const validateEmail = (_rule: any, value: any, callback: any) => {
+    if (value === '') {
+        callback(new Error('邮箱不能为空'))
+    } else if (!reg_email.test(value)) {
+        callback(new Error('邮箱格式不正确'))
+    } else {
+        callback()
+    }
+}
+const reg_email = /^([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)$/
+const rulesUpdate = reactive({
+    email: [{ validator: validateEmail, trigger: 'blur' }],
+})
 </script>
 
 <style lang="scss">
@@ -627,6 +680,7 @@ const save = () => {
         .expert_head {
             width: 56px;
             height: 56px;
+            border-radius: 50%;
         }
         .expert_name {
             font-size: 18px;
@@ -664,12 +718,28 @@ const save = () => {
                 width: 60px;
                 height: 60px;
                 vertical-align: middle;
+                border-radius: 50%;
             }
             span {
                 font-size: 16px;
                 font-weight: 700;
                 color: rgba(0, 0, 0, 1);
                 margin-left: 20px;
+            }
+            .look_pact {
+                display: inline-block;
+                margin-top: 20px;
+                color: $base-theme-color;
+                text-decoration: none;
+                font-size: 14px;
+                cursor: pointer;
+                i {
+                    margin-right: 12px;
+                    font-size: 14px;
+                }
+            }
+            .look_pact:hover {
+                text-decoration: underline;
             }
         }
         .dialog_right {

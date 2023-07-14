@@ -3,7 +3,7 @@ import App from './App.vue'
 // 引入全局样式
 import '@/styles/index.scss'
 // 引入世界各个国家国旗样式
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 // 引入element-puls
 import ElementPlus from 'element-plus'

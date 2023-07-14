@@ -204,7 +204,7 @@ const smsLogin = async () => {
         let data: any = { accessToken, refreshToken, accessTokenExpiresIn, refreshTokenExpiresIn }
         userStore.setAccessToken(data)
         userStore.UserMine()
-        userStore.logoutTime()
+        // userStore.logoutTime()
         userStore.loginDialogVisible = false
 
         layoutSettingStore.refreshFn() // 重新挂载组件
@@ -269,7 +269,7 @@ const sendVerifyEmail = async () => {
         let data: any = { accessToken, refreshToken, accessTokenExpiresIn, refreshTokenExpiresIn }
         userStore.setAccessToken(data)
         userStore.UserMine()
-        userStore.logoutTime()
+        // userStore.logoutTime()
         userStore.loginDialogVisible = false
 
         emailCodeFlag.value = false
@@ -394,6 +394,7 @@ const copyRegisterEmailPass = () => {
     .el-dialog__header {
         padding: 0;
         margin-right: 0;
+        border-bottom: none !important;
     }
     .el-dialog--center {
         position: relative;

@@ -1,6 +1,6 @@
 <template>
     <div class="setting_box">
-        <el-select v-model="lang" @change="changeLang" placeholder="中文">
+        <el-select v-model="i18nStore.lang" @change="changeLang" placeholder="中文">
             <el-option label="中文" value="zn" />
             <el-option label="英文" value="en" />
         </el-select>
@@ -8,9 +8,8 @@
         <el-button size="small" icon="FullScreen" circle @click="fullScreen"></el-button>
 
         <!-- 设置主题颜色 -->
-        <!-- <el-popover placement="bottom" title="主题设置" :width="300" trigger="hover"> -->
-            <!-- 表单元素 -->
-            <!-- <el-form>
+        <!-- <el-popover placement="bottom" title="主题设置" :width="300" trigger="hover">
+            <el-form>
                 <el-form-item label="主题颜色">
                     <el-color-picker size="small" @change="changeThemeColor" v-model="themeColor" show-alpha />
                 </el-form-item>
@@ -52,19 +51,30 @@
 import Login from '@/layout/login/index.vue'
 import uselayoutSettingStore from '@/store/modules/setting'
 import useUserStore from '@/store/modules/user'
-import { ref } from 'vue'
+import useI18nStore from '@/store/modules/i18n'
+import { onMounted } from 'vue'
 
 import { useI18n } from 'vue-i18n'
+
 const { locale } = useI18n()
 
 const userStore = useUserStore()
+const i18nStore = useI18nStore()
 const layoutSettingStore = uselayoutSettingStore()
 
-const lang = ref()
 // 切换语言
 const changeLang = () => {
-    locale.value = lang.value
+    locale.value = i18nStore.lang
 }
+
+// watch(
+//     () => i18nStore.lang,
+//     () => {
+//         // console.log('i17变化了')
+//         hotTagTile.title = t('echarts.hotTagTitle')
+//     },
+// )
+// let hotTagTile = reactive({ title: t('echarts.hotTagTitle') })
 
 const refreshCom = () => {
     layoutSettingStore.refresh = !layoutSettingStore.refresh
@@ -101,6 +111,10 @@ const logout = () => {
 //     const el = document.documentElement
 //     el.style.setProperty('--el-color-primary', themeColor.value)
 // }
+onMounted(() => {
+    const el = document.documentElement
+    el.style.setProperty('--el-color-primary', '#eb5e28')
+})
 </script>
 
 <script lang="ts">
@@ -126,7 +140,7 @@ export default {
         cursor: pointer;
         margin-left: 20px;
     }
-    .refresh_btn{
+    .refresh_btn {
         margin-left: 12px;
     }
 }

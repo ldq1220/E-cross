@@ -249,12 +249,12 @@ onMounted(() => {
             height: 80px;
             margin-right: 27px;
             background-size: cover;
-            .img_box{
+            .img_box {
                 display: inline-block;
                 width: 60px;
                 height: 80px;
             }
-            .good_box{
+            .good_box {
                 width: 90px;
                 height: 90px;
             }
@@ -299,12 +299,12 @@ onMounted(() => {
                 font-size: 18px;
             }
         }
-        .video_pic_box{
+        .video_pic_box {
             height: 90px;
         }
 
         .video_pic:hover .play {
-            color: $base-theme-color;;
+            color: $base-theme-color;
         }
 
         .video_pic:hover .bg {

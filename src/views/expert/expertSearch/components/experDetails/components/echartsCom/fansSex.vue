@@ -18,7 +18,7 @@ onMounted(async () => {
     let id: any = route.query.id
     let res: any = await reqExpertFansSex(id)
     const data = newArray(res.result.genderDistribution)
-    data.forEach(item=> item.name == 'Male'?item.name = '男性':item.name = '女性')
+    data.forEach((item) => (item.name == 'Male' ? (item.name = '男性') : (item.name = '女性')))
 
     setTimeout(() => {
         const chartDom = document.getElementById('fansSex')

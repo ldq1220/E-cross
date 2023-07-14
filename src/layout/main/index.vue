@@ -3,7 +3,6 @@
         <transition name="fade">
             <component :is="Component" v-if="flag" />
         </transition>
-        
     </router-view>
     <Footer></Footer>
 </template>

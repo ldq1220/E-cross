@@ -76,6 +76,6 @@ const handleClick = (tab: { paneName: string }, _event: Event) => {
     background-color: rgba(229, 229, 229, 1);
 }
 // .big_box {
-    // min-width: 1010px;
+// min-width: 1010px;
 // }
 </style>

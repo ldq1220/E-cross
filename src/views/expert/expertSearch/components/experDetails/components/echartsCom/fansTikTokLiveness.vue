@@ -29,7 +29,7 @@ onMounted(() => {
                 },
                 { data: [expertInfoData.infoData.inactivityDistribution] },
             ]
-            myChart.setOption({series})
+            myChart.setOption({ series })
         },
     )
 })

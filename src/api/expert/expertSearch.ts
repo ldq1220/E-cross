@@ -24,4 +24,3 @@ export const reqExpertTop = (type: number) => request.get(API.EXPERTTOP_URL + `t
 
 // 收藏一个达人
 export const reqCollect = (id: number) => request.post(API.EXPERTCOLLECT_URL + id + '/collect')
-

@@ -36,7 +36,6 @@ export const constantRoute = [
     },
 ]
 
-
 export const asnycRoute = [
     {
         path: '/expert',

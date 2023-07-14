@@ -258,7 +258,6 @@ const tableData2 = [
             font-size: 12px;
         }
     }
-    
 }
 </style>
 <style lang="scss" scoped>
@@ -373,12 +372,12 @@ const tableData2 = [
         }
     }
     .condition_time {
-        transition: all .5s;
+        transition: all 0.5s;
     }
     .condition_box_none {
         height: 0;
         opacity: 0;
-        margin: 0 ;
+        margin: 0;
         transform: translateX(-30px);
     }
     .btn {

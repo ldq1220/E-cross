@@ -4,7 +4,11 @@
             <!-- 达人信息左边部分 -->
             <el-table-column property="name" label="" min-width="520">
                 <template #header>
-                    <div class="table_header">参与 <span>#beauty</span> 话题的热门达人</div>
+                    <div class="table_header">
+                        参与
+                        <span>#beauty</span>
+                        话题的热门达人
+                    </div>
                 </template>
                 <template #default="scope">
                     <router-link target="_blank" :to="{ path: '/expert/details', query: { id: '26995' } }" class="expert_message" @click="setUserName(scope.row.userName)">
@@ -281,11 +285,11 @@ const changePage = (value: number) => {
     padding: 0 20px 20px 20px;
     background-color: #fff;
     position: relative;
-    .table_header{
+    .table_header {
         font-size: 20px;
         font-weight: 700;
         color: rgba(128, 128, 128, 1);
-        span{
+        span {
             color: rgba(235, 94, 40, 1);
         }
     }
@@ -327,11 +331,11 @@ const changePage = (value: number) => {
                     font-size: 28px;
                 }
                 .trueCollect {
-                    color: $base-theme-color;;
+                    color: $base-theme-color;
                 }
             }
             .collect:hover i {
-                color: $base-theme-color;;
+                color: $base-theme-color;
             }
         }
         .expert_details {

@@ -37,9 +37,8 @@
     </template>
 </template>
 
-
-<script setup lang='ts'>
-import { defineProps } from 'vue';
+<script setup lang="ts">
+import { defineProps } from 'vue'
 
 defineProps(['menuList'])
 </script>
@@ -47,14 +46,13 @@ defineProps(['menuList'])
 <!-- 注意 必须开启这个  要不然 在组件内幕调用自己 递归是不生效的 -->
 <script lang="ts">
 export default {
-    name: 'Menu'
+    name: 'Menu',
 }
 </script>
 
 <style scoped lang="scss">
-.el-menu-item:hover{
+.el-menu-item:hover {
     color: #fff;
     background-color: $base-theme-color !important;
 }
-
 </style>

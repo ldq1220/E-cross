@@ -13,21 +13,21 @@
                 </el-form-item>
 
                 <el-form-item label="合作报价" class="" style="min-width: 340px" v-show="isRedact">
-                    <el-input v-model.number="formData.cooperationOffer[0]" placeholder="请输入内容" style="width: 45%">
+                    <el-input v-model.number="formData.cooperationOffer1" placeholder="请输入内容" style="width: 45%">
                         <template #prepend>$</template>
                     </el-input>
                     <span style="padding: 0 10px">至</span>
-                    <el-input v-model.number="formData.cooperationOffer[1]" placeholder="请输入内容" style="width: 45%">
+                    <el-input v-model.number="formData.cooperationOffer2" placeholder="请输入内容" style="width: 45%">
                         <template #prepend>$</template>
                     </el-input>
                 </el-form-item>
 
                 <el-form-item label="合作报价" class="" style="min-width: 340px" v-show="!isRedact">
-                    <el-input v-model.number="formData.cooperationOffer[0]" placeholder="请输入内容" style="width: 45%" disabled>
+                    <el-input v-model.number="formData.cooperationOffer1" placeholder="请输入内容" style="width: 45%" disabled>
                         <template #prepend>$</template>
                     </el-input>
                     <span style="padding: 0 10px">至</span>
-                    <el-input v-model.number="formData.cooperationOffer[1]" placeholder="请输入内容" style="width: 45%" disabled>
+                    <el-input v-model.number="formData.cooperationOffer2" placeholder="请输入内容" style="width: 45%" disabled>
                         <template #prepend>$</template>
                     </el-input>
                 </el-form-item>
@@ -43,7 +43,17 @@
                     <p class="redact_text" v-show="!isRedact">{{ formData.contactInfo }}</p>
                 </el-form-item>
 
-                <el-upload v-model="formData.contractKey" class="upload-demo" :http-request="uploadContract" multiple :limit="3" v-show="isRedact">
+                <el-upload
+                    v-model:file-list="fileList"
+                    class="upload-demo"
+                    :http-request="uploadContract"
+                    multiple
+                    :limit="1"
+                    ref="upload"
+                    :on-exceed="handleExceed"
+                    :on-remove="removeFile"
+                    v-show="isRedact"
+                >
                     <el-button>
                         <el-icon><UploadFilled /></el-icon>
                         <p class="redact_text" style="margin-left: 10px">上传合同</p>
@@ -53,7 +63,8 @@
                     </template>
                 </el-upload>
 
-                <a :href="formData.contractUrl" target="_blank" class="look_pact" v-show="!isRedact">
+                <a :href="formData.contractUrl" target="_blank" class="look_pact" v-show="formData.contractKey">
+                    <!-- <a :href="fileList[0].url" target="_blank" class="look_pact" v-show="fileList[0].name"> -->
                     <i class="iconfont icon-neirong"></i>
                     查看合同
                 </a>
@@ -79,10 +90,11 @@
                 </el-form-item>
             </div>
         </el-form>
+
         <div class="form_btn">
-            <el-button v-show="isRedact" @click="isRedact = false">取消</el-button>
+            <el-button v-show="isRedact" @click="quxiao">取消</el-button>
             <el-button class="save_btn" v-show="isRedact" @click="saveCooperationInfo">保存</el-button>
-            <el-button class="save_btn" v-show="!isRedact" @click="isRedact = true">编辑</el-button>
+            <el-button class="save_btn" v-show="!isRedact" @click="bianji">编辑</el-button>
         </div>
     </div>
 </template>
@@ -90,16 +102,24 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { reqFavInfluencers, reqGetOssSigned, reqGetFavInfluencers } from '@/api/expert/expertInfo'
-import { ElMessage } from 'element-plus'
 import { cooperationDict } from '@/utils/allDict'
 import axios from 'axios'
+import { ElMessage, genFileId } from 'element-plus'
+// @ts-ignore
+import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 
 const isRedact = ref(false) // 默认不编辑展示
 const props = defineProps(['favInfo'])
 
 const emailDom = ref() // 邮箱Dom
-const fileData = ref()
 const signedUrl = ref()
+const bianji = () => {
+    isRedact.value = true
+}
+const quxiao = () => {
+    isRedact.value = false
+    getFavInfluencers()
+}
 
 onMounted(() => {
     getFavInfluencers()
@@ -112,13 +132,21 @@ const getFavInfluencers = async () => {
 
     if (code === '00000') {
         Object.assign(formData, result)
+        formData.cooperationOffer1 = result.cooperationOffer[0]
+        formData.cooperationOffer2 = result.cooperationOffer[1]
+        fileList.value = []
+        fileList.value.push({
+            name: result.contractKey.substring(result.contractKey.lastIndexOf('/') + 1),
+            url: result.signedUrl,
+        })
     }
 }
 
 const formData: any = reactive({
     cooperationStatus: undefined,
     email: undefined,
-    cooperationOffer: [],
+    cooperationOffer1: undefined,
+    cooperationOffer2: undefined,
     paymentInfo: undefined,
     shippingInfo: undefined,
     contactInfo: undefined,
@@ -128,17 +156,39 @@ const formData: any = reactive({
 })
 
 // 上传合同
+// @ts-ignore
+const fileList = ref<UploadUserFile[]>([])
+// @ts-ignore
+const upload = ref<UploadInstance>()
+const fileData = ref()
 const uploadContract = (data: any) => {
-    fileData.value = data
+    fileData.value = data.file
+}
+// @ts-ignore
+const handleExceed: UploadProps['onExceed'] = (files: any[]) => {
+    fileData.value = files[0]
+    upload.value!.clearFiles()
+    // @ts-ignore
+    const file = files[0] as UploadRawFile
+    file.uid = genFileId()
+    upload.value!.handleStart(file)
+}
+const removeFile = () => {
+    upload.value.clearFiles()
+    fileData.value = undefined
+    formData.contractKey = ''
+    formData.contractUrl = ''
 }
 
 // 保存合作信息
 const saveCooperationInfo = async () => {
-    await emailDom.value.validate() // 通过邮箱校验
+    if (formData.email) {
+        await emailDom.value.validate() // 通过邮箱校验
+    }
 
     // 上传合同
     if (fileData.value) {
-        let res: any = await reqGetOssSigned({ scene: 1, key: fileData.value.file.name }) // 获取上传URL
+        let res: any = await reqGetOssSigned({ scene: 1, key: fileData.value.name }) // 获取上传URL
         if (res.code === '00000') {
             signedUrl.value = res.result.signedUrl
             formData.contractKey = res.result.fullKey
@@ -147,9 +197,9 @@ const saveCooperationInfo = async () => {
         let config = {
             method: 'put',
             url: signedUrl.value,
-            data: fileData.value.file,
+            data: fileData.value,
             headers: {
-                'Content-Type': fileData.value.file.type,
+                'Content-Type': fileData.value.type,
             },
         }
         axios(config)
@@ -161,19 +211,20 @@ const saveCooperationInfo = async () => {
             })
     }
     const favCateId: any = props.favInfo.id
-    formData.cooperationOffer[0] === '' ? (formData.cooperationOffer[0] = undefined) : formData.cooperationOffer[0]
-    formData.cooperationOffer[1] === '' ? (formData.cooperationOffer[1] = undefined) : formData.cooperationOffer[1]
+    let cooperationOffer = []
+    formData.cooperationOffer1 === '' ? (cooperationOffer[0] = undefined) : (cooperationOffer[0] = formData.cooperationOffer1)
+    formData.cooperationOffer2 === '' ? (cooperationOffer[1] = undefined) : (cooperationOffer[1] = formData.cooperationOffer2)
 
     const data = {
         favCateId,
         cooperationStatus: formData.cooperationStatus || undefined,
         email: formData.email || undefined,
-        cooperationOffer: formData.cooperationOffer,
+        cooperationOffer: cooperationOffer,
         paymentInfo: formData.paymentInfo || undefined,
         shippingInfo: formData.shippingInfo || undefined,
         contactInfo: formData.contactInfo || undefined,
         remark: formData.remark || undefined,
-        contractKey: formData.contractKey || undefined,
+        contractKey: formData.contractKey || null,
     }
     await reqFavInfluencers(favCateId, data) // 更新合作信息
 
@@ -259,7 +310,8 @@ const rules = reactive({
         }
         .look_pact {
             display: inline-block;
-            height: 59px;
+            // height: 59px;
+            margin-top: 20px;
             color: $base-theme-color;
             text-decoration: none;
             font-size: 14px;

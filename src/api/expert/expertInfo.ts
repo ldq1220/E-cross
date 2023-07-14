@@ -10,6 +10,8 @@ enum API {
     UPADATEINFLUENCERINFO_URL = '/web/influencers/', // 更新达人信息
     FAV_INFLUENCERS_URL = '/web/fav-influencers/', // 获取:get 达人合作信息 || 更新:post 达人合作信息 || 取消收藏:delete
     OSS_SIGNED_URL = '/oss/signed-url/generate', // 获取CF预签名URL
+    INFLUENCERSINTERACTIONS_URL = '/web/influencers/', // 获取"get达人联系记录列表  || 更新:post 达人互动记录
+    INFLUENCER_INTERACTIONS_URL = '/web/influencer-interactions/', // 更新:patch 一个达人互动记录  || 删除:detele 一条达人互动记录
 }
 
 // 获取一个达人的内容统计
@@ -48,14 +50,26 @@ export const reqExpertFansDevice = (id: number) => request.get(API.EXPERTFANSGRO
 // 更新达人信息
 export const reqUpdateInfluencerInfo = (id: number) => request.patch(API.UPADATEINFLUENCERINFO_URL + id + '/grab')
 
-// 更新达人合作信息
+// 获取达人合作信息
 export const reqGetFavInfluencers = (id: number) => request.get<any, any>(API.FAV_INFLUENCERS_URL + id)
 
 // 更新达人合作信息
-export const reqFavInfluencers = (id: number, data: any) => request.post(API.FAV_INFLUENCERS_URL + id, data)
+export const reqFavInfluencers = (id: number, data: any) => request.patch(API.FAV_INFLUENCERS_URL + id, data)
 
 // 取消收藏达人
 export const reqCancelCollect = (id: number) => request.delete(API.FAV_INFLUENCERS_URL + id)
 
 // 获取CF预签名URL
 export const reqGetOssSigned = (data: any) => request.post(API.OSS_SIGNED_URL, data)
+
+// 获取达人联系记录列表
+export const reqGetInteractions = (id: string) => request.get(API.INFLUENCERSINTERACTIONS_URL + id + '/interactions')
+
+// 获取达人联系记录列表
+export const reqAddInteractions = (id: string, data: any) => request.post(API.INFLUENCERSINTERACTIONS_URL + id + '/interactions', data)
+
+// 更新一个达人互动记录
+export const reqUpdateInfluencerInfoRecord = (id: string, data: any) => request.patch(API.INFLUENCER_INTERACTIONS_URL + id, data)
+
+// 删除一个达人互动记录
+export const reqDeteleInfluencerInfoRecord = (id: number) => request.delete(API.INFLUENCER_INTERACTIONS_URL + id)

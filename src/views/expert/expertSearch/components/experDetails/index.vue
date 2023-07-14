@@ -98,15 +98,15 @@
 
                 <cooperationInformation :favInfo="favInfo" v-if="tabItem === 'cooperationInformation'" />
             </el-tab-pane>
-            <!-- 动态记录 -->
+            <!-- 联系记录 -->
             <el-tab-pane name="dynamicRecording" v-if="isShow">
                 <template #label>
                     <span class="custom-tabs-label">
                         <i class="iconfont icon-dongtai tab_icon"></i>
-                        <span>动态记录</span>
+                        <span>联系记录</span>
                     </span>
                 </template>
-                <dynamicRecording />
+                <dynamicRecording  v-if="tabItem === 'dynamicRecording'" />
             </el-tab-pane>
             <!-- 合作效果 -->
             <el-tab-pane name="cooperationResult" v-if="isShow">
@@ -143,6 +143,15 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { reqExpertDetail } from '@/api/expert/expertSearch'
 
+// @ts-ignore
+import { BroadcastChannel } from 'broadcast-channel' // 广播 用于收藏
+
+const setChannel = new BroadcastChannel('favExpert') // 创建广播实例
+// 接受广播 tab 显示
+setChannel.onmessage = () => {
+    getDate()
+}
+
 const route = useRoute()
 
 const favInfo = ref()
@@ -158,7 +167,7 @@ async function getDate() {
     let res: any = await reqExpertDetail(id)
     if (res.code == '00000') {
         favInfo.value = res.result.favInfo
-        res.result.favInfo ? (isShow.value = true) : (isShow.value = false)
+        res.result.favInfo && res.result.favInfo.status === 1 ? (isShow.value = true) : (isShow.value = false)
     }
 }
 

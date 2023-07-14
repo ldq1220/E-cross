@@ -24,7 +24,7 @@ const useExpertSearchList = defineStore('expertSearchList', () => {
     return {
         page,
         reqData,
-        searchLoading
+        searchLoading,
     }
 })
 

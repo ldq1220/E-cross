@@ -6,16 +6,37 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { reqExpertFansGrowh } from '@/api/expert/expertInfo'
 import { getLastSevenData } from '@/utils/formatNumber'
+import useI18nStore from '@/store/modules/i18n'
+import { useI18n } from 'vue-i18n'
+
+const i18nStore = useI18nStore()
+const {t} = useI18n()
 
 const route = useRoute()
+
 let option: object
-onMounted(async () => {
+onMounted(() => {
+    getEcharts()
+})
+watch(
+    () => i18nStore.lang,
+    () => {
+        var chartDom = document.getElementById('main')
+        let myChart = echarts.init(chartDom as any)
+        myChart.setOption({
+            title: {
+                text: t('echarts.fansNumberTitle'),
+            },
+        })
+    },
+)
+
+const getEcharts = async () => {
     let id: any = route.query.id
-    id = 16198 // 死数据
     let res: any = await reqExpertFansGrowh(id)
     const [lastSevenKeys, lastSevenValues] = getLastSevenData(res.result.followersCount)
 
@@ -77,6 +98,6 @@ onMounted(async () => {
     }
 
     myChart.setOption(option as any)
-})
+}
 </script>
 <style scoped lang="scss"></style>

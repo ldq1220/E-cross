@@ -6,11 +6,30 @@ body {
     background-color: #f7f7f7;
 }
 //滚动条外观设置
-// ::-webkit-scrollbar {
-//     width: 0;
-//     height: 0;
-//     background-color: rgba(0, 0, 0, 0);
-// }
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+// 修改element的默认样式
+.el-button--primary {
+    box-shadow: 0 0 0 1px $base-theme-color inset !important;
+    background-color: $base-theme-color !important;
+    border-color: transparent !important;
+}
+
+.el-dialog__header {
+    margin-right: 0 !important;
+    padding-left: 31px !important;
+    border-bottom: 1px solid rgba(229, 229, 229, 1) !important;
+}
+.el-dialog__footer {
+    border-top: 1px solid rgba(229, 229, 229, 1) !important;
+}
+.el-dialog__headerbtn {
+    top: 0 !important;
+}
 
 // 修改element 输入框选中状态
 .el-input__wrapper.is-focus {
@@ -32,7 +51,7 @@ body {
     background-color: $base-theme-color !important;
     border-color: $base-theme-color !important;
 }
-.el-checkbox__input.is-indeterminate .el-checkbox__inner{
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
     background-color: $base-theme-color !important;
     border-color: $base-theme-color !important;
 }

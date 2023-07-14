@@ -107,6 +107,7 @@ import { reqSearchConditions } from '@/api/expert/expertSearch'
 import useExpertSearchList from '@/store/modules/expertSearchList'
 
 const expertSearchList = useExpertSearchList()
+
 const countryCodeMess = ref()
 
 onMounted(() => {
@@ -134,7 +135,6 @@ const getSearchConditions = async () => {
     if (res.code === '00000') {
         screenData.countrys = res.result.countrys
         screenData.creativeTypes = res.result.creativeTypes
-
         screenData.countrys.forEach((item: { isactive: boolean }) => (item.isactive = false))
     }
 }
@@ -588,7 +588,7 @@ const containsValue = (obj: any, value: any) => {
             height: 50px;
             margin-left: 20px;
             width: 170px;
-            background-color: $base-theme-color;
+            // background-color: $base-theme-color;
             border: none;
             .btn_icon1 {
                 display: inline-block;

@@ -50,14 +50,14 @@ request.interceptors.request.use(async (config) => {
                     userStore.accessToken = res.result.accessToken
                     config.headers.authorization = 'Bearer ' + userStore.accessToken
 
-                    // return new Promise((resolve) => {
-                    //     // 继续请求
-                    //     // 重新设置 token
-                    //     if (config.headers) {
-                    //         config.headers.authorization = 'Bearer ' +  userStore.accessToken
-                    //     }
-                    //     resolve(config)
-                    // })
+                    return new Promise((resolve) => {
+                        // 继续请求
+                        // 重新设置 token
+                        if (config.headers) {
+                            config.headers.authorization = 'Bearer ' +  userStore.accessToken
+                        }
+                        resolve(config)
+                    })
                 }
             }
         }
@@ -77,13 +77,13 @@ request.interceptors.response.use(
 
         const { status } = error.response
         if (status === 401) {
+            console.log(error)
+            console.log('userStoreAccessToken-----',userStore.accessToken)
             userStore.userLogout() // 退出登录
         }
 
-        ElMessage.closeAll(); // 关闭所有提示
-
-        // 错误的提示信息
-        ElMessage.error(message)
+        ElMessage.closeAll() // 关闭所有提示
+        ElMessage.error(message) // 错误的提示信息
 
         return error.response.data // 返回响应数据或错误信息的包装器
     },

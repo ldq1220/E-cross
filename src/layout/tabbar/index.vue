@@ -61,7 +61,7 @@ export default {
         font-size: 20px;
         font-weight: 700;
         cursor: pointer;
-        transition: all .2s;
+        transition: all 0.2s;
     }
     span:hover {
         color: $base-theme-color;

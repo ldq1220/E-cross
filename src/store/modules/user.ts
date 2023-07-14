@@ -2,17 +2,16 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { constantRoute, asnycRoute, anyRoute } from '@/router/routes'
 import { reqUserLogin, reqGetUserMine } from '@/api/user'
-import { ElMessage, dayjs, ElNotification } from 'element-plus'
+import { ElMessage, dayjs } from 'element-plus'
 
 // 创建用户小仓库  ~函数式
 const useUserStore = defineStore('User', () => {
-
     const loginDialogVisible = ref(false) // 控制登录弹窗是否打开
 
     // 存储用户路由表
     let menuRoutes: any = []
     menuRoutes = [...constantRoute, ...asnycRoute, anyRoute]
-    
+
     const accessToken = ref('')
     const userInfo = ref() // 用户信息
 
@@ -44,7 +43,7 @@ const useUserStore = defineStore('User', () => {
             let data: any = { accessToken, refreshToken, accessTokenExpiresIn, refreshTokenExpiresIn }
             setAccessToken(data)
             UserMine()
-            logoutTime()
+            // logoutTime()
             ElMessage.success('登录成功！')
         } else {
             // ElMessage.error(res.message)
@@ -89,20 +88,20 @@ const useUserStore = defineStore('User', () => {
     }
 
     // 开启登录过期倒计时
-    const logoutTime = () => {
-        setTimeout(async () => {
-            if (!isRefreshTokenExpiresIn()) {
-                logoutTime()
-            } else {
-                userLogout()
-                ElNotification.error({
-                    title:'提示',
-                    message: '您的登录已过期，请重新登陆！',
-                    duration: 0,
-                })
-            }
-        }, 7200 * 1000)
-    }
+    // const logoutTime = () => {
+    //     setTimeout(async () => {
+    //         if (!isRefreshTokenExpiresIn()) {
+    //             logoutTime()
+    //         } else {
+    //             userLogout()
+    //             ElNotification.error({
+    //                 title: '提示',
+    //                 message: '您的登录已过期，请重新登陆！',
+    //                 duration: 0,
+    //             })
+    //         }
+    //     }, 7200 * 1000)
+    // }
 
     return {
         accessToken,
@@ -113,7 +112,6 @@ const useUserStore = defineStore('User', () => {
         userLogin,
         UserMine,
         userLogout,
-        logoutTime,
         setAccessToken,
         isAccessTokenExpiresIn,
         isRefreshTokenExpiresIn,

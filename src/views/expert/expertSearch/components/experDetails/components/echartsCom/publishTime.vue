@@ -198,6 +198,7 @@ const getechart = () => {
                 dayLabel: {
                     firstDay: 1,
                     nameMap: ['日', '一', '二', '三', '四', '五', '六'],
+                    // nameMap: ['Sun', `Mon`, 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
                 },
                 monthLabel: {
                     show: false, //隐藏title

@@ -15,5 +15,10 @@ const zhCN = {
         productDetails: 'Product details',
         topicExpertList: 'List of hot topic',
     },
+    info: {},
+    echarts: {
+        hotTagTitle: 'Video tag popularity',
+        fansNumberTitle:'Change of fans'
+    },
 }
 export default zhCN

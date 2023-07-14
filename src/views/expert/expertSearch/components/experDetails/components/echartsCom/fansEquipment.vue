@@ -24,8 +24,7 @@ onMounted(async () => {
         () => expertInfoData.infoData.deviceDistribution,
         () => {
             let series = [{ data: expertInfoData.infoData.deviceDistribution }]
-            myChart.setOption({series})
-            
+            myChart.setOption({ series })
         },
     )
 })

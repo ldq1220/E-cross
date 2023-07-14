@@ -30,9 +30,11 @@
                 <span class="specialty_text" v-if="false">及时履约</span>
             </div>
             <div class="expert_label_box">
-                <div class="product_type" v-if="false">
-                    <span>带货类型</span>
-                    <el-tag>美食</el-tag>
+                <div class="product_type" v-if="expertDetail.topics">
+                    <span>创作类型</span>
+                    <el-tag style="margin-right: 4px" type="danger" v-for="(item, index) in getLabelsFromValues(expertDetail.topics, systemStore.creativeTypes)" :key="index">
+                        {{ item }}
+                    </el-tag>
                 </div>
                 <div class="expert_label">
                     <span>标签</span>
@@ -108,7 +110,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref, defineEmits } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { formatNumber } from '@/utils/formatNumber'
 import { reqUpdateInfluencerInfo, reqCancelCollect } from '@/api/expert/expertInfo'
 import { reqExpertDetail } from '@/api/expert/expertSearch'
@@ -119,14 +121,18 @@ import favElDialog from '@/components/favElDialog/index.vue'
 import { reqCollect } from '@/api/expert/expertSearch'
 import { useRoute } from 'vue-router'
 import dayjs from 'dayjs'
+import { getLabelsFromValues } from '@/utils/allDict'
+
+// @ts-ignore
+import { BroadcastChannel } from 'broadcast-channel' // 广播 用于收藏
 
 const route = useRoute()
-const $emit = defineEmits(['getDate'])
 
 const systemStore = useSystemStore()
 const expertInfoData = useExpertInfoData()
 const updateTime = ref('2023-06-01 15:23:46') // 更新时间
 const dialogFormVisible = ref(false)
+const setChannel = new BroadcastChannel('favExpert') // 创建广播实例
 
 //数据
 let expertDetail: any = reactive({
@@ -144,11 +150,17 @@ let expertDetail: any = reactive({
     avatarKey: undefined,
     email: undefined,
     favInfo: undefined,
+    topics: undefined,
 })
 
 onMounted(() => {
     getExpertInfo()
 })
+
+// 接受广播 改变收藏状态
+setChannel.onmessage = () => {
+    getExpertInfo()
+}
 
 //获取达人详情数据
 const getExpertInfo = async () => {
@@ -170,6 +182,7 @@ const favExpert = async () => {
         await reqCancelCollect(expertDetail.favInfo.id)
         getExpertInfo()
         ElMessage.success('取消收藏')
+        setChannel.postMessage() // 发送广播
     } else {
         dialogFormVisible.value = true
     }
@@ -183,8 +196,8 @@ const submitCollect = async () => {
     const res: any = await reqCollect(expertDetail.id)
     if (res.code === '00000') {
         getExpertInfo()
-        $emit('getDate')
         ElMessage.success('收藏成功')
+        setChannel.postMessage() // 发送广播
         dialogFormVisible.value = false // 隐藏对话框
     }
 }
@@ -317,6 +330,7 @@ const updateInfo = async () => {
             display: flex;
             margin-top: 10px;
             font-size: 12px;
+            align-items: center;
             color: rgba(128, 128, 128, 1);
             span {
                 margin-right: 5px;

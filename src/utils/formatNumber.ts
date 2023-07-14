@@ -53,7 +53,7 @@ export const getTopSixDataFive = (obj: any) => {
     })
 
     const flag = data1.some((item) => item.name === 'Other')
-    flag ? data = data2.filter((item) => item.name !== 'Other') : data = data1
+    flag ? (data = data2.filter((item) => item.name !== 'Other')) : (data = data1)
 
     // 返回结果数组
     return data

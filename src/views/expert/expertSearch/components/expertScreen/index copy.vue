@@ -173,8 +173,8 @@ const props = {
     children: 'children',
 }
 
-const handleNodeClick = (currentData: any,allData: any) => {
-  console.log(currentData,allData)
+const handleNodeClick = (currentData: any, allData: any) => {
+    console.log(currentData, allData)
 }
 
 // 筛选条件数据

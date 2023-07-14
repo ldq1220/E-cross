@@ -2,8 +2,7 @@
     <div class="content_box">
         <!-- 商品缩略图 -->
         <div class="product_pic">
-            <img src="https://img.js.design/assets/img/647f049d275dab5aa216aba2.png#864a98f6fd3e062a8e2fd71aab237bdf" alt=""
-                class="product_img" />
+            <img src="https://img.js.design/assets/img/647f049d275dab5aa216aba2.png#864a98f6fd3e062a8e2fd71aab237bdf" alt="" class="product_img" />
         </div>
         <!-- 达人信息 -->
         <div class="product_info">
@@ -19,8 +18,7 @@
                     <span class="iconfont icon-bangzhu frequencyIcon"></span>
                 </el-tooltip>
             </div>
-            <div class="product_name">3811mm 40mm 42mm 44mm 41mm 45mm Luxury TPU protector Iwatch Luminous Cover For Apple
-                Watch case series 1/2/3/4/5/6/7</div>
+            <div class="product_name">3811mm 40mm 42mm 44mm 41mm 45mm Luxury TPU protector Iwatch Luminous Cover For Apple Watch case series 1/2/3/4/5/6/7</div>
             <div class="product_score_box">
                 <div class="product_sample">
                     <sapn class="iconfont icon-mianfei1"></sapn>
@@ -47,7 +45,10 @@
                     <span>样品申请人数</span>
                 </div>
                 <div class="details_data_item">
-                    <p>25.00 <i class="currency">USD</i></p>
+                    <p>
+                        25.00
+                        <i class="currency">USD</i>
+                    </p>
                     <span>互动率</span>
                 </div>
                 <div class="details_data_item">
@@ -104,7 +105,7 @@
     min-width: 920px;
     padding: 25px 25px 30px;
     border-radius: 5px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 1)0%, rgba(199, 235, 215, 1) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(199, 235, 215, 1) 100%);
     border: 1px solid rgba(228, 88, 88, 0.16);
 
     .product_pic {
@@ -172,7 +173,6 @@
                     font-size: 22px;
                     margin-right: 5px;
                 }
-
             }
 
             .product_score {
@@ -213,10 +213,11 @@
                 font-size: 14px;
                 color: rgba(128, 128, 128, 1);
             }
-            .currency{
+            .currency {
                 font-size: 12px;
                 color: rgba(128, 128, 128, 1);
             }
         }
     }
-}</style>
+}
+</style>

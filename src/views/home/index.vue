@@ -23,7 +23,6 @@ const handleButtonClick = () => {
     // 处理按钮点击事件的逻辑
     console.log('按钮被点击了')
 }
-
 </script>
 
 <style scoped></style>

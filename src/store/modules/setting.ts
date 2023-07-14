@@ -12,7 +12,6 @@ const uselayoutSettingStore = defineStore('Setting', () => {
         refresh.value = !refresh.value
     }
 
-
     return {
         fold,
         refresh,

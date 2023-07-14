@@ -334,12 +334,12 @@ const changePage = (value: number) => {
                 }
 
                 .trueCollect {
-                    color: $base-theme-color;;
+                    color: $base-theme-color;
                 }
             }
 
             .collect:hover i {
-                color: $base-theme-color;;
+                color: $base-theme-color;
             }
         }
 

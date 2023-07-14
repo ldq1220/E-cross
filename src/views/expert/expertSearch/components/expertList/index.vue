@@ -132,6 +132,10 @@ import useSystemStore from '@/store/modules/system'
 import goScrollTop from '@/utils/goScrollTop'
 import favElDialog from '@/components/favElDialog/index.vue'
 import { ElMessage } from 'element-plus'
+// @ts-ignore
+import { BroadcastChannel } from 'broadcast-channel' // 广播 用于收藏
+
+const setChannel = new BroadcastChannel('favExpert') // 创建广播实例
 
 const expertSearchList = useExpertSearchList()
 const systemStore = useSystemStore()
@@ -148,6 +152,10 @@ watch(expertSearchList.reqData, () => {
     getExpertList()
 })
 
+// 接收广播
+setChannel.onmessage = () => {
+    getExpertList()
+}
 // 获取达人列表
 const getExpertList = async () => {
     expertSearchList.searchLoading = true
@@ -191,8 +199,11 @@ const changetop = (value: number) => {
 // 点击收藏
 const collectExpert = async (id: number, favInfo: any) => {
     if (favInfo && favInfo.status == 1) {
+        console.log(favInfo.id);
+        
         await reqCancelCollect(favInfo.id)
         getExpertList()
+        setChannel.postMessage() // 发送广播
         ElMessage.success('取消收藏')
     } else {
         nowId.value = id
@@ -213,6 +224,7 @@ const submitCollect = async () => {
     if (res.code === '00000') {
         getExpertList()
         ElMessage.success('收藏成功')
+        setChannel.postMessage() // 发送广播
         dialogFormVisible.value = false // 隐藏对话框
     }
 }
